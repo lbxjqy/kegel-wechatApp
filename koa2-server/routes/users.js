@@ -11,5 +11,8 @@ router.get('/bar', function (ctx, next) {
 })
 
 router.post('/create', UserController.create);
+// 获取用户信息
 router.get('/info',UserController.Info)
+// 结束训练
+router.post('/endTrain',UserController.endTrain)
 module.exports = router

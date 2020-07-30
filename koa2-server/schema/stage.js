@@ -1,8 +1,8 @@
 const moment = require('moment');
 const {sequelize,DataTypes} = require('../config/db');
 
-module.exports = sequelize.define('user', {
-        // 用户ID
+module.exports = sequelize.define('stage', {
+        // 阶段ID
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -10,29 +10,44 @@ module.exports = sequelize.define('user', {
             autoIncrement: true,
         },
         // 名
-        nickname: {
+        name: {
             type: DataTypes.STRING,
-            field: 'nickname',
+            field: 'name',
         },
-        // 积分
-        integral: {
+        // 最小区间
+        minInterval: {
             type: DataTypes.INTEGER,
-            field: 'integral',
+            field: 'min_interval'
         },
-        // 阶段
-        stage: {
+        // 最大区间（各个阶段不应该重叠）
+        maxInterval: {
             type: DataTypes.INTEGER,
-            field: 'stage',
+            field: 'max_interval'
         },
-        // 累计训练时常(秒)
+        // 训练内容 格式： [{"burst":30},{"threeStage":10}]
+        trainContent: {
+            type: DataTypes.JSON,
+            field: 'train_content'
+        },
+        // 训练内容所需要的时间
         trainTime: {
             type: DataTypes.INTEGER,
-            field: 'train_time',
+            field: 'train_time'
         },
-        // 最高测试记录(秒)
-        maxTime: {
+        // 爆发次数
+        burst: {
             type: DataTypes.INTEGER,
-            field: 'max_time',
+            field: 'burst',
+        },
+        // 三段次数
+        threeStage: {
+            type: DataTypes.INTEGER,
+            field: 'three_stage',
+        },
+        // 耐力次数
+        endurance: {
+            type: DataTypes.INTEGER,
+            field: 'endurance',
         },
         // 创建时间
         createdAt: {
