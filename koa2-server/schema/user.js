@@ -38,9 +38,9 @@ module.exports = sequelize.define('user', {
         createdAt: {
             type: DataTypes.DATE,
             field: 'created_at',
-            // get() {
-            //     return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
-            // }
+            get() {
+                return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss');
+            }
         },
         // 更新时间
         updatedAt: {

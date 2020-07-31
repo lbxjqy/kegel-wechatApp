@@ -23,12 +23,17 @@ class userController {
      * @returns {Promise.<void>}
      */
     static async Info(ctx,next) {
-        ctx.body = await User.findOne({
+        let u = await User.findOne({
             attributes: ["id","createdAt","updatedAt","nickname","integral","stage","trainTime"],
             where: {
                 id:ctx.query.id,
             }
         })
+        if(!u) {
+            ctx.body = result.getResultFiled(null, "user is empty");
+            return;
+        }
+        ctx.body = result.getResultSuccess(u);
         next();
     }
 
@@ -39,7 +44,7 @@ class userController {
      */
     static async endTrain(ctx,next) {
         let body = ctx.request.body;
-        // 查询处训练时间
+        // 查询训练时间
         let stage = await Stage.findById(body.stageId);
         if(!stage) {
             ctx.body = result.getResultFiled(null, "stageId is error")
@@ -52,8 +57,7 @@ class userController {
             ctx.body = result.getResultFiled(null, "train_time is error")
             return;
         }
-        let u = await User.findById(body.uid,{
-            attributes: ["id","trainTime"]})
+        let u = await User.findById(body.uid,{attributes: ["id","trainTime"]})
         ctx.body = result.getResultSuccess(u);
         next();
     }
